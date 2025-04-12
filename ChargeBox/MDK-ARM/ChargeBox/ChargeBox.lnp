@@ -1,0 +1,26 @@
+--cpu Cortex-M0+
+"chargebox\startup_stm32g031xx.o"
+"chargebox\main.o"
+"chargebox\stm32g0xx_it.o"
+"chargebox\stm32g0xx_hal_msp.o"
+"chargebox\stm32g0xx_hal_tim.o"
+"chargebox\stm32g0xx_hal_tim_ex.o"
+"chargebox\stm32g0xx_hal_rcc.o"
+"chargebox\stm32g0xx_hal_rcc_ex.o"
+"chargebox\stm32g0xx_ll_rcc.o"
+"chargebox\stm32g0xx_hal_flash.o"
+"chargebox\stm32g0xx_hal_flash_ex.o"
+"chargebox\stm32g0xx_hal_gpio.o"
+"chargebox\stm32g0xx_hal_dma.o"
+"chargebox\stm32g0xx_hal_dma_ex.o"
+"chargebox\stm32g0xx_ll_dma.o"
+"chargebox\stm32g0xx_hal_pwr.o"
+"chargebox\stm32g0xx_hal_pwr_ex.o"
+"chargebox\stm32g0xx_hal_cortex.o"
+"chargebox\stm32g0xx_hal.o"
+"chargebox\stm32g0xx_hal_exti.o"
+"chargebox\system_stm32g0xx.o"
+--strict --scatter "ChargeBox\ChargeBox.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "ChargeBox.map" -o ChargeBox\ChargeBox.axf
