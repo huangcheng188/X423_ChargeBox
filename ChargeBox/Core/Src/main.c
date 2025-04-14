@@ -99,6 +99,12 @@ int main(void)
     /* Starting Error */
     Error_Handler();
   }
+
+  extern int32_t rt9426_main(void);
+  extern void RT9426_Update_Info(void);
+  
+  rt9426_main();
+  RT9426_Update_Info();
   /* USER CODE END 2 */
 
   /* Infinite loop */

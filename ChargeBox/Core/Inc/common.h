@@ -8,6 +8,7 @@ typedef struct timer_struct{
 }timer_t;
 extern timer_t timer;
 
+void project_version_printf(void);
 void heartrate_callback(void);
 void stm32_heartrate(uint32_t tick_cnt, void (*callback)(void));
 

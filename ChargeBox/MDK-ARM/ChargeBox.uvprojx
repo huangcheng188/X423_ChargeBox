@@ -637,6 +637,11 @@
               <FileType>1</FileType>
               <FilePath>../Core/Src/stm32g0xx_hal_msp.c</FilePath>
             </File>
+            <File>
+              <FileName>rt9426.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\rt9426.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
