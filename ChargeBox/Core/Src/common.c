@@ -1,3 +1,4 @@
+#include "main.h"
 #include "common.h"
 #include <stdio.h>
 
@@ -36,4 +37,22 @@ void stm32_heartrate(uint32_t tick_cnt, void (*callback)(void))
         timer.time_1000ms = tick_cnt;
         callback();
     }
+}
+
+void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
+{
+  if(GPIO_Pin == HALL_OUT_Pin){
+    printf("HALL_OUT_Pin Rising\r\n");
+  }else{
+    printf("Unkown Rising\r\n");
+  }
+}
+
+void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
+{
+  if(GPIO_Pin == HALL_OUT_Pin){
+    printf("HALL_OUT_Pin Falling\r\n");
+  }else{
+    printf("Unkown Falling\r\n");
+  }
 }
