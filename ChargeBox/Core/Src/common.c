@@ -56,3 +56,4 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
     printf("Unkown Falling\r\n");
   }
 }
+

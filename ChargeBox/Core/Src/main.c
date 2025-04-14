@@ -92,6 +92,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_TIM2_Init();
   MX_I2C2_Init();
+  MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   project_version_printf();
   
@@ -100,6 +101,9 @@ int main(void)
     Error_Handler();
   }
 
+  extern uint8_t rx_data;
+  HAL_UART_Receive_IT(&huart2, &rx_data, 1);
+  
   extern int32_t rt9426_main(void);
   extern void RT9426_Update_Info(void);
   
@@ -112,8 +116,12 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+   
     /* USER CODE BEGIN 3 */
+    static uint8_t i=0;
+    i++;
+    HAL_UART_Transmit(&huart2, &i, 1, HAL_MAX_DELAY);
+    HAL_Delay(1000);
     stm32_heartrate(100, heartrate_callback);
   }
   /* USER CODE END 3 */
