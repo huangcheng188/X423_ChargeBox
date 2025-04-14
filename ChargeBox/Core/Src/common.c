@@ -43,6 +43,8 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
 {
   if(GPIO_Pin == HALL_OUT_Pin){
     printf("HALL_OUT_Pin Rising\r\n");
+  }else if(GPIO_Pin == FUEL_GAUGE_INT_Pin){
+    printf("FUEL_GAUGE_INT_Pin Rising\r\n");
   }else{
     printf("Unkown Rising\r\n");
   }
@@ -52,6 +54,8 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {
   if(GPIO_Pin == HALL_OUT_Pin){
     printf("HALL_OUT_Pin Falling\r\n");
+  }else if(GPIO_Pin == FUEL_GAUGE_INT_Pin){
+    printf("FUEL_GAUGE_INT_Pin Rising\r\n");
   }else{
     printf("Unkown Falling\r\n");
   }

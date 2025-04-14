@@ -111,12 +111,12 @@ int main(void)
   RT9426_Update_Info();
   /* USER CODE END 2 */
 
-   /* Infinite loop */
+  /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
-   
+
     /* USER CODE BEGIN 3 */
     uart_process_analysis(&uart);
     HAL_Delay(1000);

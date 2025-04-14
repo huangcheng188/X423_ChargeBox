@@ -70,6 +70,9 @@ void Error_Handler(void);
 #define LED_W_GPIO_Port GPIOA
 #define LED_PWR1_Pin GPIO_PIN_3
 #define LED_PWR1_GPIO_Port GPIOB
+#define FUEL_GAUGE_INT_Pin GPIO_PIN_4
+#define FUEL_GAUGE_INT_GPIO_Port GPIOB
+#define FUEL_GAUGE_INT_EXTI_IRQn EXTI4_15_IRQn
 #define LED_W1_Pin GPIO_PIN_5
 #define LED_W1_GPIO_Port GPIOB
 #define HALL_OUT_Pin GPIO_PIN_8
