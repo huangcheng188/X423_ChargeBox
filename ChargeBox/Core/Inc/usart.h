@@ -42,7 +42,18 @@ void MX_USART1_UART_Init(void);
 void MX_USART2_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
+#define BUF_LEN 16
 
+typedef struct uart_struct{
+    uint8_t cnt;
+    uint8_t buf[BUF_LEN];
+    uint8_t buf_rx[BUF_LEN];
+}uart_t;
+extern uart_t uart;
+
+void uart_process_init(void);
+void uart_process_analysis(uart_t *puart);
+HAL_StatusTypeDef uart_send_buf(uint8_t len, ...);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

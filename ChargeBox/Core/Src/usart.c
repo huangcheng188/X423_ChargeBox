@@ -22,6 +22,7 @@
 
 /* USER CODE BEGIN 0 */
 #include <stdio.h>
+#include <stdarg.h>
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;
@@ -212,16 +213,62 @@ int fputc(int ch, FILE *f)  //add huangcheng for printf
 }
 
 uint8_t rx_data;
+uart_t uart;
+
+static void uart_process_recive(uart_t *puart, uint8_t data)
+{
+    puart->buf[puart->cnt] = data;
+    puart->cnt++;
+    if(puart->cnt > BUF_LEN){
+        printf(">*<\r\n");
+        puart->cnt = 0;
+    }
+}
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
   if (huart->Instance == USART2)  
   {
-    printf("R:%02x", rx_data);
+    //printf("R:%02x\r\n", rx_data);
+    uart_process_recive(&uart, rx_data);
     HAL_UART_Receive_IT(&huart2, &rx_data, 1);
   }
 }
 
+void uart_process_init(void)
+{
+  memset(&uart, 0, sizeof(uart_t));
+  HAL_UART_Receive_IT(&huart2, &rx_data, 1);
+}
+
+void uart_process_analysis(uart_t *puart)
+{
+  if(puart->cnt){
+    printf(":<");
+    for(uint8_t i=0; i<puart->cnt; i++){
+        printf(" 0x%02x", puart->buf[i]);
+    }
+    printf("\r\n");
+    puart->cnt = 0;
+  }
+}
+
+HAL_StatusTypeDef uart_send_buf(uint8_t len, ...)
+{
+  HAL_StatusTypeDef ret;
+  va_list args;  
+    
+  va_start(args, len); 
+
+  for (int i = 0; i < len; i++) {
+    uart.buf_rx[i] = (uint8_t)va_arg(args, int);
+    //printf("uart.buf_rx[i] = %d\r\n", uart.buf_rx[i]);
+  }
+  va_end(args);
+
+  ret = HAL_UART_Transmit(&huart2, uart.buf_rx, len, HAL_MAX_DELAY);
+  return ret;
+}
 /* USER CODE END 1 */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

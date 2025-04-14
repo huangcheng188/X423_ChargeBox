@@ -27,6 +27,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "common.h"
+#include "usart.h"
 #include <stdio.h>
 /* USER CODE END Includes */
 
@@ -101,8 +102,7 @@ int main(void)
     Error_Handler();
   }
 
-  extern uint8_t rx_data;
-  HAL_UART_Receive_IT(&huart2, &rx_data, 1);
+  uart_process_init();
   
   extern int32_t rt9426_main(void);
   extern void RT9426_Update_Info(void);
@@ -111,16 +111,14 @@ int main(void)
   RT9426_Update_Info();
   /* USER CODE END 2 */
 
-  /* Infinite loop */
+   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
    
     /* USER CODE BEGIN 3 */
-    static uint8_t i=0;
-    i++;
-    HAL_UART_Transmit(&huart2, &i, 1, HAL_MAX_DELAY);
+    uart_process_analysis(&uart);
     HAL_Delay(1000);
     stm32_heartrate(100, heartrate_callback);
   }
