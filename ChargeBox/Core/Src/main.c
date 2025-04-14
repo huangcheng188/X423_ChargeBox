@@ -19,12 +19,13 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "common.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -87,8 +88,14 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART1_UART_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-
+  void project_version_printf();
+  
+  if (HAL_TIM_Base_Start_IT(&htim2) != HAL_OK){
+    /* Starting Error */
+    Error_Handler();
+  }
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -96,8 +103,9 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    printf("123\r\n");
+
     /* USER CODE BEGIN 3 */
+    stm32_heartrate(100, heartrate_callback);
   }
   /* USER CODE END 3 */
 }
@@ -170,6 +178,7 @@ void Error_Handler(void)
   __disable_irq();
   while (1)
   {
+      printf("%s\r\n", __func__);
   }
   /* USER CODE END Error_Handler_Debug */
 }
