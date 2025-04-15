@@ -28,6 +28,7 @@
 /* USER CODE BEGIN Includes */
 #include "common.h"
 #include "usart.h"
+#include "hall.h"
 #include <stdio.h>
 /* USER CODE END Includes */
 
@@ -85,7 +86,7 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
+  HAL_Delay(5000);
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -119,7 +120,8 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     uart_process_analysis(&uart);
-    HAL_Delay(1000);
+    //HAL_Delay(1000);
+    hall_process(&hall, NULL);
     stm32_heartrate(100, heartrate_callback);
   }
   /* USER CODE END 3 */
