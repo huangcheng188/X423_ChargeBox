@@ -1,4 +1,11 @@
+#include <stdio.h>
+#include "stm32g0xx_hal.h"
 
+extern I2C_HandleTypeDef hi2c2;
+
+#define GPIO1_master HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)     //for test
+
+#define my_delay_ms(x) HAL_Delay(x)
 
 //******************************************************
 unsigned char Master_Default_Reg_Value[0x30]={0x88,0xe9,0x00,0x00,0x10,0x02,0x00,0x80,

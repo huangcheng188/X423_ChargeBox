@@ -110,6 +110,10 @@ int main(void)
   
   rt9426_main();
   RT9426_Update_Info();
+
+  // Master_Glass_Plug_In_Detection_L();
+  // Master_Glass_Plug_Out_Detection_L();
+  // Master_Intb_To_VoutR_Uart();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -120,7 +124,8 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     uart_process_analysis(&uart);
-    //HAL_Delay(1000);
+    // uart_send_buf(2, 0xff, 0xa0);
+    // HAL_Delay(1000);
     hall_process(&hall, NULL);
     stm32_heartrate(100, heartrate_callback);
   }

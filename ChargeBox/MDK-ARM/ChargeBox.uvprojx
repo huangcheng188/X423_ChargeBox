@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32G031xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;                  ../Drivers/STM32G0xx_HAL_Driver/Inc;                  ../Drivers/STM32G0xx_HAL_Driver/Inc/Legacy;                  ../Drivers/CMSIS/Device/ST/STM32G0xx/Include;                  ../Drivers/CMSIS/Include</IncludePath>
+              <IncludePath>../Core/Inc;                   ../Drivers/STM32G0xx_HAL_Driver/Inc;                   ../Drivers/STM32G0xx_HAL_Driver/Inc/Legacy;                   ../Drivers/CMSIS/Device/ST/STM32G0xx/Include;                   ../Drivers/CMSIS/Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -402,6 +402,16 @@
               <FileName>rt9426.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\Src\rt9426.c</FilePath>
+            </File>
+            <File>
+              <FileName>hall.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\hall.c</FilePath>
+            </File>
+            <File>
+              <FileName>yhm4101.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\yhm4101.c</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
@@ -641,11 +651,6 @@
               <FileName>stm32g0xx_hal_msp.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/stm32g0xx_hal_msp.c</FilePath>
-            </File>
-            <File>
-              <FileName>hall.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\hall.c</FilePath>
             </File>
           </Files>
         </Group>
