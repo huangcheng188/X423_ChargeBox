@@ -1,56 +1,3 @@
-         
-
-//add huangcheng 2025-03-05
-#include "stm32g0xx_hal.h"
-#include <stdio.h>
-
-// 定义 word 类型
-typedef uint16_t WORD;
-
-#define DELAY_1MS  1
-#define DELAY_5MS  5
-#define DELAY_10MS 10
-#define DELAY_20MS 20
-#define DELAY_60MS 60
-#define Delay_msecond HAL_Delay
-
-#if 1
-#define RT9426_PRINTF(fmt, ...) printf(fmt "\r\n", ##__VA_ARGS__)
-#else
-#define RT9426_PRINTF(fmt, ...) 
-#endif
-
-#define RT9426_I2C_ADDR (0x55<<1)
-#define RT9426_READ_LEN 2
-extern I2C_HandleTypeDef hi2c2;
-
-uint8_t Gauge_Write_Register(uint8_t addr, uint16_t data)
-{
-    HAL_StatusTypeDef ret;
-    uint8_t *ptr;
-
-    ptr = (uint8_t *)&data;
-    //printf("%x  %x\r\n", *ptr, *(ptr+1));
-    ret = HAL_I2C_Mem_Write(&hi2c2, RT9426_I2C_ADDR, addr, I2C_MEMADD_SIZE_8BIT, ptr, RT9426_READ_LEN, HAL_MAX_DELAY);
-    //printf("WR:ret=%d data=0x%04x\r\n", ret, data);
-
-    return ret;
-
-}
-uint8_t Gauge_Read_Register(uint8_t addr, uint16_t *pdata)
-{
-    HAL_StatusTypeDef ret;
-    uint8_t buf[2];
-
-    ret = HAL_I2C_Mem_Read(&hi2c2, RT9426_I2C_ADDR, addr, I2C_MEMADD_SIZE_8BIT, buf, RT9426_READ_LEN, HAL_MAX_DELAY);
-    *pdata = buf[1]<<8 | buf[0];
-    //printf("RD:ret=%d buf[0]=0x%02x  buf[1]=0x%02x *pdata=0x%04x\r\n", ret, buf[0], buf[1], *pdata);
-
-    return ret;
-}
-
-//add end
-
 /*---------------------------------------------------------------*/
 /*-------Richtek RT9426 Driver Sample Code V1.1.4 20190726-------*/
 /*---------------------------------------------------------------*/
@@ -97,16 +44,7 @@ uint32_t g_basic_key = 0x12345678;
 uint32_t g_advance_key = 0xFFFFFFFF;
 uint16_t g_rt9426_update_info[16]={0};
 
-//add huangcheng 2025-03-05
-void rt9426_printf_reg(void)
-{
-    const char *reg_str[16] = {"System_Time", "REG_VBAT", "REG_CURR", "REG_TEMP", "REG_INTT", "REG_SOC", "REG_RM", \
-        "REG_SOH", "REG_DC", "REG_FCC", "REG_FLAG1", "REG_FLAG2", "REG_FLAG3", "REG_IRQ"};
 
-    for(uint8_t loop=0;loop<16;loop++)
-        RT9426_PRINTF("%s: 0x%04x", reg_str[loop], g_rt9426_update_info[loop]);
-}
-//add end
 
 int32_t RT9426_Initial(void)
 {
@@ -509,8 +447,8 @@ int32_t RT9426_Initial(void)
 
 void RT9426_Update_Info(void)
 {
-    uint8_t  loop=0;  //uint8_t BYTE loop=0;
-    uint16_t regval=0; //uint16_t WORD regval=0;
+    uint8_t BYTE loop=0;
+    uint16_t WORD regval=0;
 
     Gauge_Read_Register(REG_FLAG3, &regval); //-- check flag3, if RI=1, reinitial IC
     RT9426_PRINTF("\n RT9426_REG_FLAG3 = %04x\r",regval);
@@ -519,14 +457,14 @@ void RT9426_Update_Info(void)
         Gauge_Read_Register(REG_FLAG3, &regval); //-- check flag3, if RI=1, reinitial IC
         RT9426_PRINTF("\n RT9426_REG_FLAG3 = %04x\r",regval);
         if(regval & 0x0100) {
-          rt9426_main();
+          main();
         }
     }
 
     for(loop=0;loop<16;loop++)
         g_rt9426_update_info[loop] = 0;
 
-    //g_rt9426_update_info[0] = System_Time;    //huangcheng 2025-03-05 cancel
+    g_rt9426_update_info[0] = System_Time;
     Gauge_Read_Register(REG_VBAT, &g_rt9426_update_info[1]);
     Gauge_Read_Register(REG_CURR, &g_rt9426_update_info[2]);
     Gauge_Read_Register(REG_TEMP, &g_rt9426_update_info[3]);
@@ -540,8 +478,6 @@ void RT9426_Update_Info(void)
     Gauge_Read_Register(REG_FLAG2, &g_rt9426_update_info[11]);
     Gauge_Read_Register(REG_FLAG3, &g_rt9426_update_info[12]);
     Gauge_Read_Register(REG_IRQ, &g_rt9426_update_info[13]);
-
-    rt9426_printf_reg();    //add huangcheng 2025-03-05
 }
 
 
@@ -609,7 +545,7 @@ void RT9426_Exit_Shutdown(void)
 		}
     }
 }*/
-int32_t rt9426_main(void)
+int32_t main(void)
 {
     uint16_t regval=0;
     uint16_t count=0;
